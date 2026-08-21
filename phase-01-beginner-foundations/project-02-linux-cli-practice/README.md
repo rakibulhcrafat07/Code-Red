@@ -34,6 +34,16 @@ A cheat-sheet summarizing the commands and concepts learned, covering both netwo
 
 ### OSI & TCP/IP Model
 
+```mermaid
+graph TD
+    A["7 · Application<br/>HTTP, FTP, DNS, SMTP"] --> B["6 · Presentation<br/>Encryption, compression"]
+    B --> C["5 · Session<br/>Session establishment"]
+    C --> D["4 · Transport<br/>TCP / UDP — segments, ports"]
+    D --> E["3 · Network<br/>IP, ICMP — packets"]
+    E --> F["2 · Data Link<br/>MAC address, switches — frames"]
+    F --> G["1 · Physical<br/>Cables, Wi-Fi signal — bits"]
+```
+
 **OSI Model (7 layers, top to bottom):**
 
 | # | Layer | Data Unit | Example |
@@ -74,6 +84,16 @@ Mnemonic (Physical → Application): **P**lease **D**o **N**ot **T**hrow **S**au
 | Use case | Web, file transfer, email | DNS, streaming, gaming |
 
 **TCP 3-way handshake:** `SYN` → `SYN-ACK` → `ACK`
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    C->>S: SYN
+    S-->>C: SYN-ACK
+    C->>S: ACK
+    Note over C,S: Connection established
+```
 
 **Well-known ports:**
 
@@ -126,11 +146,35 @@ Mnemonic (Physical → Application): **P**lease **D**o **N**ot **T**hrow **S**au
 
 **Method:** find block size → find which block the IP falls in → network = block start, broadcast = one before the next block starts.
 
+```mermaid
+graph LR
+    A["Block 1<br/>.0 – .31"] --> B["Block 2<br/>.32 – .63<br/>← our example IP falls here"] --> C["Block 3<br/>.64 – .95"] --> D["Block 4<br/>.96 – .127"]
+    style B fill:#f9c74f,stroke:#333,stroke-width:2px
+```
+
 ---
 
 ### DNS
 
 **Resolution flow:** Browser cache → OS cache → Recursive resolver → Root server → TLD server → Authoritative server → IP returned.
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant R as Recursive Resolver
+    participant Root as Root Server
+    participant TLD as TLD Server (.com)
+    participant Auth as Authoritative Server
+
+    B->>R: Not cached — resolve example.com
+    R->>Root: Where is .com?
+    Root-->>R: Ask the .com TLD server
+    R->>TLD: Where is example.com?
+    TLD-->>R: Ask the authoritative server
+    R->>Auth: Resolve example.com
+    Auth-->>R: IP address
+    R-->>B: IP address returned
+```
 
 **Record types:**
 
@@ -201,11 +245,35 @@ dig axfr @ns example.com # zone transfer test (misconfig recon)
 
 **TLS handshake (simplified):** ClientHello → ServerHello + certificate → client verifies cert → shared session key established → encrypted communication begins.
 
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    C->>S: ClientHello (supported ciphers)
+    S-->>C: ServerHello + certificate (public key)
+    C->>C: Verify certificate against trusted CAs
+    C-->>S: Key exchange (shared secret material)
+    Note over C,S: Both derive the same session key
+    Note over C,S: All further traffic is encrypted
+```
+
 ---
 
 ## Linux Fundamentals
 
 ### Filesystem
+
+```mermaid
+graph TD
+    Root["/"] --> bin["/bin — basic commands"]
+    Root --> etc["/etc — configuration files"]
+    Root --> home["/home — user folders"]
+    Root --> rootdir["/root — root user's home"]
+    Root --> var["/var — logs (/var/log)"]
+    Root --> tmp["/tmp — temp, often writable"]
+    Root --> usr["/usr — installed programs"]
+    Root --> dev["/dev — device files"]
+```
 
 **Hierarchy (all under root `/`):**
 
