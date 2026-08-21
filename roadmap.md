@@ -15,10 +15,10 @@ All hands-on work lives under phase folders (starting with [`phase-01-beginner-f
 | # | Project | Status |
 |---|---|---|
 | 1 | [Home Lab Setup](./phase-01-beginner-foundations/project-01-home-lab-setup) | ✅ Done |
-| 2 | [Linux & CLI Practice](./phase-01-beginner-foundations/project-02-linux-cli-practice) | ⬜ To Do |
+| 2 | [Linux & CLI Practice](./phase-01-beginner-foundations/project-02-linux-cli-practice) | ✅ Done |
 | 3 | [Build a Simple Port Scanner](./phase-01-beginner-foundations/project-03-port-scanner) | ⬜ To Do |
 | 4 | [First CTF Write-ups](./phase-01-beginner-foundations/project-04-first-ctf-writeups) | ⬜ To Do |
 
 ## Author
 
-Rakibul Rafat
+Rakibul Hoque Chowdhury
